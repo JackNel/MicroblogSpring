@@ -5,9 +5,31 @@
     <title>Home</title>
 </head>
 <body>
+
+
+{{#username}}
+<form action="add-message" method="post">
+    <input type="text" placeholder="Enter Your Message" name="text" size="50"/>
+    <button type="submit">Submit</button>
+</form>
+<br><br>
+Messages by {{username}}:
+<br><br>
+{{#messages}}
+{{id}}. {{text}}
+<a href="delete-message?id={{id}}">
+<button type="submit">Delete</button><br>
+</a>
+{{/messages}}
+{{/username}}
+
+
+{{^username}}
 <form action="login" method="post">
     <input type="text" placeholder="Enter Your Name" name="username" size="50"/>
-    <button type="Submit">Login</button>
+    <button type="submit">Login</button>
 </form>
+{{/username}}
+
 </body>
 </html>
