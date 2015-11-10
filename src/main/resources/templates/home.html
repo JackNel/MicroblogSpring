@@ -13,13 +13,20 @@
     <button type="submit">Submit</button>
 </form>
 <br><br>
-Messages by {{username}}:
+Messages by {{.}}:
 <br><br>
 {{#messages}}
 {{id}}. {{text}}
-<a href="delete-message?id={{id}}">
+<a href="edit?id={{id}}">Edit</a>
+<form action="delete-message" method="post" style="display:inline">
+    <input type="hidden" name="id" value="{{id}}"/>
+    <button type="submit">Delete</button><br>
+</form>
+
+<!--
 <button type="submit">Delete</button><br>
-</a>
+</a>-->
+
 {{/messages}}
 {{/username}}
 

@@ -1,5 +1,6 @@
 package com.theironyard;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +16,15 @@ import java.util.ArrayList;
 
 @Controller
 public class MicroblogSpringController {
-    ArrayList<Message> messages = new ArrayList();
+    @Autowired
+    MessageRepository messages;
 
     @RequestMapping("/")
     public String home(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         model.addAttribute("username", username);
-        model.addAttribute("messages", messages);
+        model.addAttribute("messages", messages.findAll());
         return "home";
     }
 
@@ -34,20 +36,23 @@ public class MicroblogSpringController {
     }
 
     @RequestMapping("/add-message")
-    public String message(String text) {
+    public String addMessage(String text) {
         Message message = new Message();
-        message.id = messages.size() + 1;
         message.text = text;
-        messages.add(message);
+        messages.save(message);
         return "redirect:/";
     }
 
     @RequestMapping("/delete-message")
     public String delete(Integer id) {
-        messages.remove(id-1);
-        for (int i = 0; i < messages.size(); i++) {
-            messages.get(i).id = i + 1;
-        }
+        messages.delete(id);
         return "redirect:/";
     }
+
+    @RequestMapping("/edit")
+    public String edit(Integer id) {
+        Message message = messages.findOne(id);
+        return "redirect:edit.html";
+    }
+
 }
