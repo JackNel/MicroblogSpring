@@ -12,18 +12,13 @@
     <input type="text" placeholder="Enter Your Message" name="text" size="50"/>
     <button type="submit">Submit</button>
 </form>
-<br>
-<form action="edit-message" method="post">
-    <input type="number" placeholder="Edit ID" name="id"/>
-    <input type="text" placeholder="Edit your message" name="editMessage" size="50"/>
-    <button type="submit">Submit Changes</button>
-</form>
+
 <br><br>
 Messages by {{.}}:
 <br><br>
 {{#messages}}
 {{id}}. {{text}}
-
+<a href="edit?id={{id}}">Edit</a>
 <form action="delete-message" method="post" style="display:inline">
     <input type="hidden" name="id" value="{{id}}"/>
     <button type="submit">Delete</button><br>

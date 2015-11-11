@@ -13,4 +13,8 @@ public class Message {
     @GeneratedValue
     Integer id;
     String text;
+
+    public Message() {
+
+    }
 }
