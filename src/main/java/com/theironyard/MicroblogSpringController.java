@@ -49,10 +49,11 @@ public class MicroblogSpringController {
         return "redirect:/";
     }
 
-    @RequestMapping("/edit")
-    public String edit(Integer id) {
+    @RequestMapping("/edit-message")
+    public String edit(Integer id, String editMessage) {
         Message message = messages.findOne(id);
-        return "redirect:edit.html";
+        message.text = editMessage;
+        messages.save(message);
+        return "redirect:/";
     }
-
 }

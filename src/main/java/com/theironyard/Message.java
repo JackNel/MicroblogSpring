@@ -12,6 +12,5 @@ public class Message {
     @Id
     @GeneratedValue
     Integer id;
-
     String text;
 }
